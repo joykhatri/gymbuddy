@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GymBuddy Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { background-color: #f0f4f8; color: #1f2937; }
+    .navbar-brand { font-weight: bold; color: #10b981 !important; }
+    .blog-card:hover { transform: translateY(-5px); transition: 0.3s ease; }
+    .badge { cursor: pointer; }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+  <div class="container">
+    <a class="navbar-brand" href="{% url 'home' %}">🏋️ GymBuddy</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="/diet_plan/">Diet Plan/Recipe</a></li>
+        <li class="nav-item"><a class="nav-link active" href="{% url 'blog' %}">Blog</a></li>
+        {% if user.is_authenticated %}
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
+        <img src="{% if user.profile %}{{ user.profile.url }}{% else %}https://cdn-icons-png.flaticon.com/512/149/149071.png{% endif %}"
+             alt="User" class="rounded-circle me-2" style="width: 35px; height: 35px; object-fit: cover;">
+        {{ user.first_name }}
+      </a>
+      <ul class="dropdown-menu dropdown-menu-end">
+        <li><a class="dropdown-item" href="#">Profile</a></li>
+        <li><a class="dropdown-item" href="{% url 'feedback' %}">Feedback</a></li>
+        <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+      </ul>
+    </li>
+  {% else %}
+    <!-- <li class="nav-item"><a class="nav-link" href="/signup/">Signup</a></li> -->
+    <li class="nav-item"><a class="nav-link" href="/login/">Login</a></li>
+  {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Header -->
+<div class="container my-5">
+  <div class="text-center">
+    <h2 class="fw-bold">📰 GymBuddy Knowledge Base</h2>
+    <p>Get the latest updates on diet plans, fitness myths, workouts, and protein tips!</p>
+  </div>
+
+  <!-- Search & Categories -->
+  <form method="get" class="row g-3 justify-content-center mt-4">
+    <div class="col-md-6">
+      <input type="text" name="query" class="form-control" placeholder="Search articles (e.g., protein, weight loss)" value="{{ request.GET.query }}">
+    </div>
+    <div class="col-md-2">
+      <button type="submit" class="btn btn-success w-100">Search</button>
+    </div>
+  </form>
+
+  <div class="text-center my-4">
+    <span class="badge bg-primary mx-1" onclick="window.location.href='?query=gym'">🏋️ Gym</span>
+    <span class="badge bg-success mx-1" onclick="window.location.href='?query=diet'">🥗 Diet</span>
+    <span class="badge bg-warning text-dark mx-1" onclick="window.location.href='?query=protein'">💪 Protein</span>
+    <span class="badge bg-danger mx-1" onclick="window.location.href='?query=weight loss myths'">🧠 Myths</span>
+    <span class="badge bg-info text-dark mx-1" onclick="window.location.href='?query=muscle gain tips'">🏆 Muscle Gain</span>
+  </div>
+
+  <!-- Articles -->
+  <div class="row mt-4">
+    {% for article in articles %}
+    <div class="col-md-6 col-lg-4 mb-4">
+      <div class="card blog-card h-100 shadow-sm">
+        {% if article.image or article.urlToImage %}
+        <img src="{{ article.image|default:article.urlToImage }}" class="card-img-top" style="height:200px; object-fit:cover;">
+        {% endif %}
+        <div class="card-body">
+          <h5 class="card-title">{{ article.title }}</h5>
+          <p class="card-text">{{ article.description|default:article.content|truncatechars:100 }}</p>
+          <a href="{% url 'blog_detail' %}?index={{ forloop.counter0 }}" class="btn btn-outline-primary btn-sm">Read More</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="bg-dark text-white text-center py-4 mt-5">
+  <div class="container">
+    <p>&copy; 2025 GymBuddy. All rights reserved.</p>
+    <div>
+      <a href="{% url 'about' %}" class="text-white mx-2">About Us</a>
+      <a href="{% url 'contact' %}" class="text-white mx-2">Contact Us</a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

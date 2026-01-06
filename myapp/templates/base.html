@@ -1,0 +1,68 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}GymBuddy{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Loader style */
+        .loader {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #22c55e;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 font-sans">
+
+<!-- Loader -->
+<div id="loader" class="fixed inset-0 bg-white z-50 flex items-center justify-center">
+    <div class="loader"></div>
+</div>
+
+<!-- Navbar -->
+<nav class="bg-slate-900 text-white p-4 flex justify-between items-center shadow-lg">
+    <h1 class="text-2xl font-bold text-emerald-400">🏋️GymBuddy</h1>
+    <ul class="flex space-x-4">
+        <li><a href="/" class="hover:text-emerald-400">Home</a></li>
+        <li><a href="/diet_plan" class="hover:text-emerald-400">Diet Plan</a></li>
+        <li><a href="/about" class="hover:text-emerald-400">About</a></li>
+        <li><a href="/contact" class="hover:text-emerald-400">Contact</a></li>
+    </ul>
+</nav>
+
+<!-- Main Content -->
+<div class="mt-8">
+    {% block content %}{% endblock %}
+</div>
+
+<!-- Footer -->
+<footer class="bg-slate-900 text-white mt-20 p-6 text-center">
+    <p class="text-sm">&copy; 2025 GymBuddy. All rights reserved.</p>
+    <div class="mt-2 space-x-4">
+        <a href="/about" class="hover:text-emerald-400">About Us</a>
+        <a href="/contact" class="hover:text-emerald-400">Contact Us</a>
+    </div>
+</footer>
+
+<!-- Loader JS -->
+<script>
+    window.addEventListener("load", function () {
+        const loader = document.getElementById("loader");
+        if (loader) {
+            loader.style.display = "none";
+        }
+    });
+</script>
+
+</body>
+</html>
