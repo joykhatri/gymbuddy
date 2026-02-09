@@ -119,7 +119,7 @@ def feedback_view(request):
 
     return render(request, "feedback.html")
 
-SPOONACULAR_API_KEY = "54bc2c496c8f4a9d8e089299a2b9deb2"
+SPOONACULAR_API_KEY = "Your SPOONACULAR API KEY"
 
 @login_required(login_url='/login/')
 def diet_plan(request):
@@ -128,7 +128,7 @@ def diet_plan(request):
 
     url = f"https://api.spoonacular.com/mealplanner/generate"
     params = {
-        "apiKey": "54bc2c496c8f4a9d8e089299a2b9deb2",
+        "apiKey": "Your API KEY",
         "timeFrame": "week",
         "targetCalories": calories,
         "diet": query,
@@ -143,7 +143,7 @@ def recipe_detail(request, recipe_id):
     api_key = settings.SPOONACULAR_API_KEY
     url = f"https://api.spoonacular.com/recipes/{recipe_id}/information"
     params = {
-        "apiKey": "54bc2c496c8f4a9d8e089299a2b9deb2",
+        "apiKey": "Your API KEY",
         "includeNutrition": True
     }
 
@@ -155,8 +155,8 @@ def recipe_detail(request, recipe_id):
     })
 
 
-NEWS_API_KEY = "f76cc4d89a334794a3b97d4c926ec386"
-CONTEXTUAL_API_KEY = "7b7502a257msh2c563db7556d714p103429jsnb8f12f0bdb9b"
+NEWS_API_KEY = "Your NEWS API KEY"
+CONTEXTUAL_API_KEY = "Your CONTEXTUAL API KEY"
 
 def blog(request):
     query = request.GET.get('query', 'gym fitness')
@@ -328,4 +328,5 @@ def process_order(request, product_id):
 # Order Success page
 def order_success(request, order_id):
     order = get_object_or_404(Order, id=order_id)
+
     return render(request, 'order_success.html', {'order': order})
