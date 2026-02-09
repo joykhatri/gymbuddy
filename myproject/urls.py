@@ -25,11 +25,10 @@ from myapp import views
 from myapp.views import home
 
 urlpatterns = [
-    #  path('', lambda request: redirect('categories/')),
-   path('admin/', admin.site.urls),
-   path('', home, name='home'),
-path('categories/', views.workout_categories, name='workout_categories'),
- path('signup/', views.signup_view, name='signup'),
+    path('admin/', admin.site.urls),
+    path('', home, name='home'),
+    path('categories/', views.workout_categories, name='workout_categories'),
+    path('signup/', views.signup_view, name='signup'),
     path('login/', views.login_view, name='login'),
     path('about/', views.about_view, name='about'),
     path('contact/', views.contact_view, name='contact'),
@@ -49,5 +48,4 @@ path('categories/', views.workout_categories, name='workout_categories'),
     path('process-order/<int:product_id>/', views.process_order, name='process_order'),
     path('order-success/<int:order_id>/', views.order_success, name='order_success'),
 
-# path('categories/', include('workouts.urls')), 
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
