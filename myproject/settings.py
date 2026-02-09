@@ -58,9 +58,9 @@ LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/login/'
 # SESSION_COOKIE_NAME = "website_sessionid"
-SPOONACULAR_API_KEY = "54bc2c496c8f4a9d8e089299a2b9deb2"
-NEWS_API_KEY = "f76cc4d89a334794a3b97d4c926ec386"
-CONTEXTUAL_API_KEY = "7b7502a257msh2c563db7556d714p103429jsnb8f12f0bdb9b"
+SPOONACULAR_API_KEY = "Your SPPONACULAR API KEY"
+NEWS_API_KEY = "Your NEWS API KEY"
+CONTEXTUAL_API_KEY = "Your CONTEXTUAL API KEY"
 
 
 import os
@@ -142,4 +142,5 @@ from django.contrib.messages import constants as messages
 
 MESSAGE_TAGS = {
     messages.ERROR: 'danger',  # Bootstrap class mapping
+
 }
